@@ -3,18 +3,18 @@ const nodemailer = require('nodemailer');
 module.exports.transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: "22cs2015@rgipt.ac.in",
-        pass: "oaqlbkdoypvacnio"
+        user: "aiche@rgipt.ac.in",
+        pass: "wycasbakiulukztv"
     }
 });
 
 module.exports.mailoptionsForAdmin = (req, res) => {
     return {
         from: {
-            name: "Nitesh Saini",
-            address: '22cs2015@rgipt.ac.in'
+            name: "AIChE-RGIPT",
+            address: "aiche@rgipt.ac.in",
         },
-        to: '22cs2015@rgipt.ac.in',
+        to: "aiche@rgipt.ac.in",
         subject: "New Merchandise Purchase Request",
         text: `You have received a new merchandise purchase request from your AIChE website.
 
@@ -37,8 +37,8 @@ module.exports.mailoptionsForAdmin = (req, res) => {
 module.exports.mailoptionsForClient = (req, res) => {
     return {
         from: {
-            name: "Nitesh Saini",
-            address: '22cs2015@rgipt.ac.in'
+            name: "AIChE-RGIPT",
+            address: "aiche@rgipt.ac.in",
         },
         to: req.body.email,
         subject: "Thank You for Your Purchase Request!",
@@ -59,4 +59,3 @@ module.exports.mailoptionsForClient = (req, res) => {
             <p>Best regards,<br>AIChE RGIPT Team</p>`
     };
 };
-
