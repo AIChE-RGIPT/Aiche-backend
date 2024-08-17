@@ -6,6 +6,12 @@ const registrationInfo = async (req, res) => {
         const { name, email, abstract } = req.body;
         const CV = req.file ? req.file.filename : '';
 
+        // Validate required fields
+        if (!name || !email || !abstract) {
+            return res.status(400).send("Missing required fields");
+        }
+
+        // Create a new registration instance
         const newRegistration = new registration({
             name,
             email,
@@ -28,11 +34,11 @@ const registrationInfo = async (req, res) => {
                 console.log("Email sent successfully");
             } catch (error) {
                 console.error("Error sending email:", error);
-                throw error;
+                throw error; // Rethrow the error to handle it in the main catch block
             }
         };
 
-        // Send emails
+        // Send emails in parallel
         await Promise.all([
             sendMail(clientMailOptions),
             sendMail(adminMailOptions)
@@ -42,7 +48,7 @@ const registrationInfo = async (req, res) => {
         res.status(200).send("Registration information saved and emails sent successfully");
     } catch (error) {
         console.error("Error in registration process:", error);
-        res.status(500).send("Error in registration process");
+        res.status(500).send(`Error in registration process: ${error.message}`);
     }
 };
 
